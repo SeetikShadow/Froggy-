@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        "use strict";
+
+  //___________________________________________________________________________________________
+
+
+        function parseURL(urlStr)
+        {
+            try
+            {
+                let parsed = new URL(urlStr);
+                let protocol = parsed.protocol.replace(':', '');
+                let domain = parsed.hostname;
+                let path = parsed.pathname;
+
+                document.write(`<b>Задание 8:</b> протокол: ${protocol}, домен: ${domain}, путь: ${path}<br><br>`);
+            } 
+            catch (e)
+            {
+                document.write(`<b>Задание 8:</b> Некорректный URL<br><br>`);
+            }
+        }
+
+        parseURL("https://itstep.org/ua/about");
+
+ //___________________________________________________________________________________________
+        
+        function customSplit(str, delimiter)
+        {
+            let result = [];
+            let currentSub = "";
+
+            for (let i = 0; i < str.length; i++)
+            {
+                if (str.substr(i, delimiter.length) === delimiter)
+                {
+                    result.push(currentSub);
+                    currentSub = "";
+                    i += delimiter.length - 1;
+                } else
+                {
+                    currentSub += str[i];
+                }
+            }
+            result.push(currentSub);
+            return result;
+        }
+        let splitResult = customSplit("10/08/2020", "/");
+        document.write(`<b>Задание 9:</b> Результат без split(): "${splitResult[0]}", "${splitResult[1]}", "${splitResult[2]}"<br><br>`);
+
+        //___________________________________________________________________________________________
+
+        function print(template, ...args)
+        {
+            let formatted = template.replace(/%(\d+)/g, (match, index) =>
+            {
+                let argIndex = parseInt(index) - 1;
+                return args[argIndex] !== undefined ? args[argIndex] : match;
+            });
+
+            document.write(`<b>Задание 10:</b> ${formatted}<br>`);
+        }
+        print("Today is %1 %2.%3.%4", "Monday", 10, 8, 2020);
+ </script>
+</body>
+</html>
